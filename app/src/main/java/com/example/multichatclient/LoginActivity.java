@@ -3,14 +3,13 @@ package com.example.multichatclient;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.multichatclient.controller.Controller;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.multichatclient.controller.LogIn;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -46,13 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         String password;
         name = String.valueOf(name_et.getText());
         password = String.valueOf(password_et.getText());
-        try {
-            c.log_in(name, password);
-        }
-        catch (Exception e)
-        {
-            alert.setMessage(e.getMessage());
-            alert.create().show();
-        }
+        LogIn logIn = new LogIn();
+        logIn.execute(name,password);
     }
 }
