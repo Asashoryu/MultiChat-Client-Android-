@@ -11,6 +11,7 @@ import com.example.multichatclient.controller.Controller;
 public class MainActivity extends AppCompatActivity {
 
     Controller c;
+    //hello
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
