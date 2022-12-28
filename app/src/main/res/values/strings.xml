@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Multichat Client</string>
+    <string name="title">AlexToAlex</string>
+    <string name="login">Login</string>
+    <string name="password">password</string>
+    <string name="name">name</string>
+    <string name="register">Sign up</string>
+    <string name="no_account">do you haven\'t an account? Click</string>
+    <string name="link">HERE</string>
+</resources>
