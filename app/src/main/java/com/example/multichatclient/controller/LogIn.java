@@ -19,7 +19,7 @@ public class LogIn extends AsyncTask<String, Void, Void> {
     protected Void doInBackground (String... voids) {
         try {
             String message = voids[0] + "\r\n" + voids[1];
-            s = new Socket ("192.168.1.3",12000);
+            s = new Socket ("192.168.1.3",10000);
             pw = new PrintWriter(s.getOutputStream());
             pw.write(message);
             pw.flush();

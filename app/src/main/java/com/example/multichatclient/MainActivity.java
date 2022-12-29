@@ -11,9 +11,7 @@ import com.example.multichatclient.controller.Controller;
 public class MainActivity extends AppCompatActivity {
 
     Controller c;
-    //hello
-    //hy
-    //Ciao Trincalex
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
