@@ -42,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         String password = String.valueOf(password_et.getText());
         try {
             c.log_in(nome,password);
+            Intent intent = new Intent(this, ListaGruppiActivity.class);
+            startActivity(intent);
         } catch (InterruptedException e) {
             e.printStackTrace();
             alert = new AlertDialog.Builder(this);

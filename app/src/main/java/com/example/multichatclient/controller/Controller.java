@@ -47,6 +47,9 @@ public class Controller extends Application {
             @Override
             public void run() {
                 try {
+                    /*s = new Socket();
+                    InetSocketAddress sockAdr = new InetSocketAddress("192.168.1.3", 10000);
+                    s.connect(sockAdr, 2000);*/
                     pw = new PrintWriter(s.getOutputStream());
                     pw.write(message);
                     pw.flush();
@@ -67,6 +70,9 @@ public class Controller extends Application {
             @Override
             public void run() {
                 try {
+                    /*s = new Socket();
+                    InetSocketAddress sockAdr = new InetSocketAddress("192.168.1.3", 10000);
+                    s.connect(sockAdr, 2000);*/
                     pw = new PrintWriter(s.getOutputStream());
                     pw.write(message);
                     pw.flush();
