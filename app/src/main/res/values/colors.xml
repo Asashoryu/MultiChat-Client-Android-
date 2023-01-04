@@ -10,6 +10,7 @@
     <color name="light_blue">#47d8ff</color>
     <color name="lime">#00ff00</color>
     <color name="screaming_green">#76ff7a</color>
+    <color name="light_2">#3df5ae</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
