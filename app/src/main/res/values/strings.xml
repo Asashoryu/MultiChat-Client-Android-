@@ -8,4 +8,7 @@
     <string name="no_account">do you haven\'t an account? Click</string>
     <string name="link">HERE</string>
     <string name="HeaderList">Lista Gruppi</string>
+    <string name="write_a_message">Write a message</string>
+    <string name="todo">TODO</string>
+    <string name="message">Scrivi un messaggio</string>
 </resources>

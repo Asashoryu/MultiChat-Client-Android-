@@ -26,8 +26,9 @@ public class ListaGruppiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_gruppi);
-        prova = new String[] { "Product1", "Product2", "Product3" };
-        Collections.addAll(aListp, prova);
+        for (int i = 1; i<=20; i++) {
+            aListp.add("Product" + i);
+        }
         vlist = (ListView) findViewById(R.id.listView1);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, aListp);
         vlist.setAdapter(adapter);

@@ -44,10 +44,18 @@ public class LoginActivity extends AppCompatActivity {
             c.log_in(nome,password);
             Intent intent = new Intent(this, ListaGruppiActivity.class);
             startActivity(intent);
-        } catch (InterruptedException e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
             alert = new AlertDialog.Builder(this);
-            alert.setTitle("Error");
+            alert.setTitle("Account non trovato");
+            alert.setPositiveButton("Ok",null);
+            alert.setCancelable(true);
+            alert.setMessage (e.getMessage());
+            alert.show();
+        } catch (InterruptedException e)  {
+            e.printStackTrace();
+            alert = new AlertDialog.Builder(this);
+            alert.setTitle("Altro tipo di errore");
             alert.setPositiveButton("Ok",null);
             alert.setCancelable(true);
             alert.setMessage (e.getMessage());

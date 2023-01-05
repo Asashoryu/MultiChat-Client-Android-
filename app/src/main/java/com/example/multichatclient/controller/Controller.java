@@ -4,7 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -13,7 +15,8 @@ import java.net.SocketTimeoutException;
 public class Controller extends Application {
 
     Socket s;
-    PrintWriter pw;
+    PrintWriter output;
+    BufferedReader input;
     static boolean error = false;
 
 
@@ -43,6 +46,7 @@ public class Controller extends Application {
 
     public void log_in(@NonNull String nome, @NonNull String password) throws InterruptedException {
         String message = "cmd=login\r\nnome=" + nome + "\r\npassword=" + password + "\r\n";
+        error = false;
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -50,10 +54,15 @@ public class Controller extends Application {
                     /*s = new Socket();
                     InetSocketAddress sockAdr = new InetSocketAddress("192.168.1.3", 10000);
                     s.connect(sockAdr, 2000);*/
-                    pw = new PrintWriter(s.getOutputStream());
-                    pw.write(message);
-                    pw.flush();
-                    pw.close();
+                    output = new PrintWriter(s.getOutputStream());
+                    //input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                    output.write(message);
+                    output.flush();
+                    output.close();
+                    /*String ack = input.readLine();
+                    if (!ack.equals("ack")) {
+                        error = true;
+                    }*/
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -61,7 +70,9 @@ public class Controller extends Application {
         });
         t.start();
         t.join();
-
+        if (error) {
+            throw new NullPointerException();
+        }
     }
 
     public void register(String nome, String password) throws InterruptedException {
@@ -73,10 +84,10 @@ public class Controller extends Application {
                     /*s = new Socket();
                     InetSocketAddress sockAdr = new InetSocketAddress("192.168.1.3", 10000);
                     s.connect(sockAdr, 2000);*/
-                    pw = new PrintWriter(s.getOutputStream());
-                    pw.write(message);
-                    pw.flush();
-                    pw.close();
+                    output = new PrintWriter(s.getOutputStream());
+                    output.write(message);
+                    output.flush();
+                    output.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
