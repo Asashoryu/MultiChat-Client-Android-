@@ -42,7 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         String password = String.valueOf(password_et.getText());
         try {
             c.log_in(nome,password);
-            Intent intent = new Intent(this, ListaGruppiActivity.class);
+            //Intent intent = new Intent(this, ListaGruppiActivity.class);
+            Intent intent = new Intent(this, ChatActivity.class);
             startActivity(intent);
         } catch (NullPointerException e) {
             e.printStackTrace();
