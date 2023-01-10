@@ -16,16 +16,16 @@ public class ChatActivity extends AppCompatActivity {
 
     EditText message_et;
     MessageAdapter adapter;
-    ListView view;
-    ArrayList<Message> message_list = new ArrayList<Message>();
+    ListView lView;
+    ArrayList<Message> message_list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        view = findViewById(R.id.message_view);
+        lView = findViewById(R.id.message_view);
         adapter = new MessageAdapter(this, message_list);
-        view.setAdapter(adapter);
+        lView.setAdapter(adapter);
         message_et = findViewById(R.id.message_text);
     }
 
@@ -35,6 +35,7 @@ public class ChatActivity extends AppCompatActivity {
         Message message2 = new Message ("user",messageT,false);
         adapter.add(message1);
         adapter.add(message2);
+        lView.setSelection(adapter.getCount());
         message_et.getText().clear();
     }
 }

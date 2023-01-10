@@ -1,6 +1,5 @@
 package com.example.multichatclient.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class MessageAdapter  extends BaseAdapter {
 
-    List<Message> message_list = new ArrayList<Message>();
+    List<Message> message_list;
     Context context;
 
     public MessageAdapter(Context context, ArrayList<Message> message_list) {
@@ -54,8 +53,6 @@ public class MessageAdapter  extends BaseAdapter {
             convertView = messageInflater.inflate(R.layout.message, viewGroup,false);
             holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
             convertView.setTag(holder);
-            holder.messageBody.setText(message.getText());
-            return convertView;
         }
         else {
             convertView = messageInflater.inflate(R.layout.other_message, viewGroup,false);
@@ -63,9 +60,9 @@ public class MessageAdapter  extends BaseAdapter {
             holder.name = (TextView) convertView.findViewById(R.id.name);
             convertView.setTag(holder);
             holder.name.setText(message.getName());
-            holder.messageBody.setText(message.getText());
-            return convertView;
         }
+        holder.messageBody.setText(message.getText());
+        return convertView;
     }
 }
 

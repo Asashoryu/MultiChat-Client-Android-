@@ -28,7 +28,7 @@ public class Controller extends Application {
                 try {
                     if (s == null || !s.isConnected()) {
                         s = new Socket();
-                        InetSocketAddress sockAdr = new InetSocketAddress("192.168.1.3", 10000);
+                        InetSocketAddress sockAdr = new InetSocketAddress("192.168.1.213", 10000);
                         s.connect(sockAdr, 2000);
                     }
                 } catch (IOException e) {

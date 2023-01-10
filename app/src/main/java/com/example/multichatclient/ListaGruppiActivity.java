@@ -1,7 +1,5 @@
 package com.example.multichatclient;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,13 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ListaGruppiActivity extends AppCompatActivity {
 
-    String[] prova;
-    final ArrayList<String> aListp = new ArrayList<String>();
+    final ArrayList<String> aListp = new ArrayList<>();
     ListView vlist;
     ArrayAdapter<String> adapter;
     //Toolbar optionToolbar;
@@ -30,7 +28,7 @@ public class ListaGruppiActivity extends AppCompatActivity {
             aListp.add("Product" + i);
         }
         vlist = (ListView) findViewById(R.id.listView1);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, aListp);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, aListp);
         vlist.setAdapter(adapter);
         vlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
