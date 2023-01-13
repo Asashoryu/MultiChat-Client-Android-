@@ -40,10 +40,14 @@ public class LoginActivity extends AppCompatActivity {
     public void log_in(View view) {
         String nome = String.valueOf(name_et.getText());
         String password = String.valueOf(password_et.getText());
-        try {
+        Intent intent = new Intent(this, ListaGruppiActivity.class);
+        //Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
+        //TODO implementare server
+        /*try {
             c.log_in(nome,password);
-            //Intent intent = new Intent(this, ListaGruppiActivity.class);
-            Intent intent = new Intent(this, ChatActivity.class);
+            Intent intent = new Intent(this, ListaGruppiActivity.class);
+            //Intent intent = new Intent(this, ChatActivity.class);
             startActivity(intent);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -61,6 +65,6 @@ public class LoginActivity extends AppCompatActivity {
             alert.setCancelable(true);
             alert.setMessage (e.getMessage());
             alert.show();
-        }
+        }*/
     }
 }

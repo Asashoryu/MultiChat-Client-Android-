@@ -64,9 +64,9 @@ public class MessageAdapter  extends BaseAdapter {
         holder.messageBody.setText(message.getText());
         return convertView;
     }
-}
 
-    class MessageViewHolder {
+    public static class MessageViewHolder {
         public TextView name;
         public TextView messageBody;
     }
+}

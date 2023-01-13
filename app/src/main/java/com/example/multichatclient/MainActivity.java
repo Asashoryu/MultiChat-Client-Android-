@@ -24,7 +24,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        try {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        //TODO Implementare server
+        /*try {
             c.connetti();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -44,6 +47,6 @@ public class MainActivity extends AppCompatActivity {
             alert.setCancelable(true);
             alert.setMessage ("Altro tipo di errore");
             alert.show();
-        }
+        }*/
     }
 }
