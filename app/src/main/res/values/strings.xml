@@ -12,7 +12,7 @@
     <string name="todo">TODO</string>
     <string name="message">Scrivi un messaggio</string>
     <string name="insert_group_name">Inserire il nome del gruppo</string>
-    <string name="group_name">nome del gruppo</string>
+    <string name="group_name">Inserire il nome del gruppo</string>
     <string name="info_group">Info gruppo</string>
     <string name="delete_group">Cancella gruppo</string>
 </resources>

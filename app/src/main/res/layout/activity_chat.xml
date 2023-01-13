@@ -8,6 +8,13 @@
     android:focusableInTouchMode="true"
     tools:context=".ChatActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nome_gruppo_chat"
+        android:textSize="30dp"
+        android:gravity="center" />
+
     <ListView
         android:layout_width="match_parent"
         android:id="@+id/message_view"

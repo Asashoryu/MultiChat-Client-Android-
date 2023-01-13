@@ -25,7 +25,7 @@ public class NewGroupDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_group_dialog,null);
         builder.setView(view)
-                .setTitle("NewGroup")
+                .setTitle("Nuovo Gruppo")
                 .setNegativeButton("Cancel", new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(android.content.DialogInterface dialog, int i) {

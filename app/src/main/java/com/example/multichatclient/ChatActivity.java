@@ -2,10 +2,12 @@ package com.example.multichatclient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.multichatclient.controller.Message;
 import com.example.multichatclient.controller.MessageAdapter;
@@ -18,7 +20,9 @@ public class ChatActivity extends AppCompatActivity {
     MessageAdapter adapter;
     ListView lView;
     ArrayList<Message> message_list = new ArrayList<>();
+    TextView nomeGruppo;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,8 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MessageAdapter(this, message_list);
         lView.setAdapter(adapter);
         message_et = findViewById(R.id.message_text);
+        nomeGruppo = findViewById(R.id.nome_gruppo_chat);
+        nomeGruppo.setText(getIntent().getExtras().getString("NomeGruppo"));
     }
 
     public void sendMessage(View view) {

@@ -1,23 +1,20 @@
 package com.example.multichatclient;
 
-import android.app.Dialog;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -43,6 +40,9 @@ public class ListaGruppiActivity extends AppCompatActivity implements NewGroupDi
             public void onItemClick(AdapterView<?> adattatore, View componente, int pos, long index) {
                 String elem = (String)adattatore.getItemAtPosition(pos);
                 Log.d ("List","Elemento clickato = " + elem);
+                Intent intent = new Intent(context,ChatActivity.class);
+                intent.putExtra("NomeGruppo",elem);
+                startActivity(intent);
             }
         });
         vlist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -53,7 +53,7 @@ public class ListaGruppiActivity extends AppCompatActivity implements NewGroupDi
                 gestione_gruppo.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) context);
                 gestione_gruppo.inflate(R.menu.popup_group);
                 gestione_gruppo.show();
-                return false;
+                return true;
             }
         });
     }
@@ -70,9 +70,9 @@ public class ListaGruppiActivity extends AppCompatActivity implements NewGroupDi
         switch (item.getItemId()) {
             case (R.id.new_group):
                 NewGroupDialog newGroup = new NewGroupDialog();
+                //InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
+                //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                 newGroup.show(getSupportFragmentManager(),"Test");
-                InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                 return true;
             case (R.id.search_group):
                 return true;
@@ -87,6 +87,7 @@ public class ListaGruppiActivity extends AppCompatActivity implements NewGroupDi
         adapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
