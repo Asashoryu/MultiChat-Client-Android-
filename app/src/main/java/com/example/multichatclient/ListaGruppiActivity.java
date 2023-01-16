@@ -75,6 +75,8 @@ public class ListaGruppiActivity extends AppCompatActivity implements NewGroupDi
                 newGroup.show(getSupportFragmentManager(),"Test");
                 return true;
             case (R.id.search_group):
+                SearchGroupDialog searchGroup = new SearchGroupDialog();
+                searchGroup.show(getSupportFragmentManager(),"Test");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -85,6 +87,11 @@ public class ListaGruppiActivity extends AppCompatActivity implements NewGroupDi
     public void addGroup(String name) {
         aListp.add(name);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void searchGroup(String name) {
+        adapter.getFilter().filter(name);
     }
 
     @SuppressLint("NonConstantResourceId")

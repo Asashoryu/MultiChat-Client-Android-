@@ -12,10 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class NewGroupDialog extends AppCompatDialogFragment {
+
+public class SearchGroupDialog extends AppCompatDialogFragment {
 
     EditText ed_name;
-    DialogInterface dialogInterface;
+    NewGroupDialog.DialogInterface dialogInterface;
 
     @NonNull
     @Override
@@ -24,7 +25,7 @@ public class NewGroupDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.group_dialog,null);
         builder.setView(view)
-                .setTitle("Nuovo Gruppo")
+                .setTitle("Cerca Gruppo")
                 .setNegativeButton("Cancel", new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(android.content.DialogInterface dialog, int i) {
@@ -35,7 +36,7 @@ public class NewGroupDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(android.content.DialogInterface dialog, int i) {
                         String name = ed_name.getText().toString();
-                        dialogInterface.addGroup(name);
+                        dialogInterface.searchGroup(name);
                     }
                 });
         ed_name = view.findViewById(R.id.group_name);
@@ -45,11 +46,7 @@ public class NewGroupDialog extends AppCompatDialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        dialogInterface = (DialogInterface) context;
-    }
-
-    public interface DialogInterface {
-        void addGroup(String nome);
-        void searchGroup(String nome);
+        dialogInterface = (NewGroupDialog.DialogInterface) context;
     }
 }
+

@@ -11,4 +11,9 @@
             android:icon="@drawable/ic_baseline_search_24"
             android:id="@+id/search_group"
             app:showAsAction="ifRoom" />
+        <item
+                android:title="GoBack"
+                android:icon="@drawable/ic_baseline_arrow_back_ios_24"
+                android:id="@+id/goBack"
+                app:showAsAction="ifRoom" />
 </menu>
