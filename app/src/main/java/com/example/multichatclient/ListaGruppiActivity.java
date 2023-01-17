@@ -78,6 +78,9 @@ public class ListaGruppiActivity extends AppCompatActivity implements NewGroupDi
                 SearchGroupDialog searchGroup = new SearchGroupDialog();
                 searchGroup.show(getSupportFragmentManager(),"Test");
                 return true;
+            case (R.id.goBack):
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, aListp);
+                vlist.setAdapter(adapter);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -91,7 +94,13 @@ public class ListaGruppiActivity extends AppCompatActivity implements NewGroupDi
 
     @Override
     public void searchGroup(String name) {
-        adapter.getFilter().filter(name);
+        if (name.isEmpty()) {
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, aListp);
+            vlist.setAdapter(adapter);
+        }
+        else {
+            adapter.getFilter().filter(name);
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
