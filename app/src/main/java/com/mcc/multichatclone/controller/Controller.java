@@ -12,7 +12,7 @@ public class Controller {
     public Controller() {
         gruppi = new ArrayList<>();
         gruppi.add(new Gruppo("Prova 1"));
-        gruppi.add(new Gruppo("Ciao Trincalex"));
+        gruppi.add(new Gruppo("Ciao Trincalex2"));
 
         gruppoNavigato = null;
     }
