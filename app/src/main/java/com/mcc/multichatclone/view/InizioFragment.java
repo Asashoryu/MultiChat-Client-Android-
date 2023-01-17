@@ -34,9 +34,9 @@ public class InizioFragment extends Fragment {
         binding.setInizioViewModel(inizioModel);
 
         //live data
-        final Observer<Boolean> osservatore = nuovoValore -> {
+        final Observer<Boolean> osservatore = prosegui -> {
             // Naviga
-            if (nuovoValore == true) {
+            if (prosegui == true) {
                 Navigation.findNavController(view).navigate(R.id.action_inizioFragment_to_loginFragment);
             }
         };

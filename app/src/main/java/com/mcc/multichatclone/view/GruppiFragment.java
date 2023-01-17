@@ -59,10 +59,7 @@ public class GruppiFragment extends Fragment {
         binding.toolbar.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case (R.id.new_group):
-                    /*NewGroupDialog newGroup = new NewGroupDialog();
-                    //InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
-                    //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                    newGroup.show(getSupportFragmentManager(),"Test");*/
+                    Navigation.findNavController(view).navigate(R.id.action_gruppiFragment_to_creaGruppoFragment);
                     return true;
                 case (R.id.search_group):
                     return true;
@@ -70,6 +67,7 @@ public class GruppiFragment extends Fragment {
                     return false;
             }
         });
+        binding.getGruppiViewModel().aggiornaGruppi();
     }
 
 

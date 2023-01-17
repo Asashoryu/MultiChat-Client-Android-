@@ -31,10 +31,18 @@
         <action
             android:id="@+id/action_gruppiFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_gruppiFragment_to_creaGruppoFragment"
+            app:destination="@id/creaGruppoFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.mcc.multichatclone.view.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/creaGruppoFragment"
+        android:name="com.mcc.multichatclone.view.CreaGruppoFragment"
+        android:label="fragment_crea_gruppo"
+        tools:layout="@layout/fragment_crea_gruppo" />
 </navigation>

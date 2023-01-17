@@ -30,8 +30,8 @@
 
         <EditText
             android:id="@+id/et_email"
-            android:layout_width="266dp"
-            android:layout_height="53dp"
+            android:layout_width="250dp"
+            android:layout_height="44dp"
             android:background="@drawable/et_custom"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/name"
@@ -47,8 +47,8 @@
 
         <EditText
             android:id="@+id/et_password"
-            android:layout_width="266dp"
-            android:layout_height="53dp"
+            android:layout_width="250dp"
+            android:layout_height="44dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:background="@drawable/et_custom"
@@ -67,8 +67,8 @@
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="340dp"
-            android:layout_height="50dp"
+            android:layout_width="233dp"
+            android:layout_height="33dp"
             android:background="@drawable/btn_custom"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/login"
