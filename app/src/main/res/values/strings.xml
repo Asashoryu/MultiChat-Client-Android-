@@ -14,8 +14,8 @@
     <string name="stringaVuota"></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="insert_group_name">Inserire il nome del gruppo</string>
-    <string name="group_name">Inserire il nome del gruppo</string>
+    <string name="inserire_nome_gruppo">Inserire il nome del gruppo</string>
     <string name="info_group">Info gruppo</string>
     <string name="delete_group">Cancella gruppo</string>
+    <string name="aggiungi_gruppo">Aggiungi gruppo</string>
 </resources>

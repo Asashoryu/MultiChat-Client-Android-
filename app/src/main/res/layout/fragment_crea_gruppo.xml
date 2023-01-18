@@ -1,5 +1,6 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mcc.multichatclone.view.CreaGruppoFragment">
 
@@ -9,22 +10,38 @@
             type="com.mcc.multichatclone.viewcontroller.CreaGruppoViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/nome_gruppo"
-            android:layout_width="150dp"
-            android:layout_height="44dp" />
+            android:layout_width="250dp"
+            android:layout_height="44dp"
+            android:hint="@string/inserire_nome_gruppo"
+            android:background="@drawable/et_custom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <Button
-            android:layout_width="150dp"
-            android:layout_height="44dp"
-            android:text="Aggiungi gruppo"
-            android:onClick="@{() -> creaGruppoModel.aggiungiGruppo(nomeGruppo.getText().toString)}"/>
+            android:id="@+id/button2"
+            android:layout_width="233dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_custom"
+            android:onClick="@{() -> creaGruppoModel.aggiungiGruppo(nomeGruppo.getText().toString)}"
+            android:text="@string/aggiungi_gruppo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nome_gruppo"
+            app:layout_constraintVertical_bias="0.150"
+            tools:ignore="TouchTargetSizeCheck" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
