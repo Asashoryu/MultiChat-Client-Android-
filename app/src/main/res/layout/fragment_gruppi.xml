@@ -20,8 +20,9 @@
             android:id="@+id/toolbar"
             app:title="@string/HeaderList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+            android:layout_height="?attr/actionBarSize"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gruppi_list"

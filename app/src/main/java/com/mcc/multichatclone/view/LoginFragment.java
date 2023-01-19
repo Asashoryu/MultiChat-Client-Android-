@@ -45,9 +45,17 @@ public class LoginFragment extends Fragment {
             }
         };
 
+        final Observer<Boolean> osservaSeRegistrarsi = registrati -> {
+            if (registrati == true) {
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registrazioneFragment);
+            }
+        };
+
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         loginModel.indietro.observe(getViewLifecycleOwner(), osservaSeTornareIndietro);
         loginModel.avanti.observe(getViewLifecycleOwner(), osservaSeAndareAvanti);
+        loginModel.registrazione.observe(getViewLifecycleOwner(), osservaSeRegistrarsi);
+
 
 
         return view;

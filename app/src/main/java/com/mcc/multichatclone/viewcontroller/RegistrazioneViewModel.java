@@ -3,10 +3,10 @@ package com.mcc.multichatclone.viewcontroller;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class LoginViewModel extends ViewModel {
+public class RegistrazioneViewModel extends ViewModel {
+
     public MutableLiveData<Boolean> indietro = new MutableLiveData<>(false);
     public MutableLiveData<Boolean> avanti = new MutableLiveData<>(false);
-    public MutableLiveData<Boolean> registrazione = new MutableLiveData<>(false);
 
     public void tornaIndietro() {
         indietro.setValue(true);
@@ -16,11 +16,6 @@ public class LoginViewModel extends ViewModel {
     public void vaiAvanti() {
         avanti.setValue(true);
         avanti.setValue(false);
-    }
-
-    public void registrati() {
-        registrazione.setValue(true);
-        registrazione.setValue(false);
     }
 
 }

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_loginFragment_to_gruppiFragment"
             app:destination="@id/gruppiFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registrazioneFragment"
+            app:destination="@id/registrazioneFragment" />
     </fragment>
     <fragment
         android:id="@+id/gruppiFragment"
@@ -45,4 +48,13 @@
         android:name="com.mcc.multichatclone.view.CreaGruppoFragment"
         android:label="fragment_crea_gruppo"
         tools:layout="@layout/fragment_crea_gruppo" />
+    <fragment
+        android:id="@+id/registrazioneFragment"
+        android:name="com.mcc.multichatclone.view.RegistrazioneFragment"
+        android:label="fragment_registrazione"
+        tools:layout="@layout/fragment_registrazione" >
+        <action
+            android:id="@+id/action_registrazioneFragment_to_gruppiFragment"
+            app:destination="@id/gruppiFragment" />
+    </fragment>
 </navigation>
