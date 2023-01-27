@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/info_gruppo"
+        android:title="@string/info_gruppo" />
+
+    <item
+        android:id="@+id/cancella_gruppo"
+        android:title="@string/elimina_gruppo" />
+
+</menu>
