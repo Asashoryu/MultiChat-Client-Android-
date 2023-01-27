@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_baseline_search_24"
         android:id="@+id/search_group"
         app:showAsAction="ifRoom" />
+    <item
+        android:title="Notifica"
+        android:icon="@drawable/baseline_notifications_24"
+        android:id="@+id/notifica"
+        app:showAsAction="ifRoom" />
 </menu>
