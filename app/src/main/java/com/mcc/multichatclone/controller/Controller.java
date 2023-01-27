@@ -53,18 +53,18 @@ public class Controller {
     private static final String LOGINNONTROVATO = "113";
     private static final String SIGNGIAREGISTRATO = "213";
     private static final String CREAGRUPGIAREGISTRATO = "313";
-    private static Socket socket;
-    private static final String indirizzoServer = "192.168.1.145";
+    private static Socket socket = null;
+    private static final String indirizzoServer = "192.168.1.8";
     private static final int portaServer = 10000;
     private static String pacchetto = null;
     // comandi (client)
 
-    private static ArrayList<Gruppo> gruppiController;
+    private ArrayList<Gruppo> gruppiController;
     private Gruppo gruppoNavigato;
     private static Controller controller = null;
 
-    private String nome = "";
-    private String password = "";
+    private static String nome = "";
+    private static String password = "";
 
     private static Boolean ascolta = false;
 
@@ -104,8 +104,9 @@ public class Controller {
         if( socket != null) {
             socket.close();
         }
-        socket = null;
-        socket = getSocketInstance();
+        socket = new Socket();
+        InetSocketAddress sockAdr = new InetSocketAddress(indirizzoServer, portaServer);
+        socket.connect(sockAdr, 2000);
         return socket;
     }
 
@@ -113,8 +114,54 @@ public class Controller {
         return socket.isConnected();
     }
 
-    public void login(String nome, String password) throws InterruptedException {
+    public void login(String nome, String password) throws Exception {
         String messaggio = "\r\ncmd=" + LOGIN + "\r\nnome=" + nome + "\r\npassword=" + password + "\r\n\r\n";
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run()  {
+                try {
+                    System.err.println("Superato il while della login");
+                    PrintWriter output = new PrintWriter(socket.getOutputStream());
+                    output.write(messaggio);
+                    output.flush();
+                } catch (IOException e) {
+                    e = new IOException("login non riuscito socket chiusa");
+                }
+            }
+        });
+        // serve per creare una sincronizzazione pezzotta con l'attivazione della socket
+        t.sleep(25);
+        t.start();
+        t.join();
+        setNome(nome);
+        setPassword(password);
+    }
+
+    public void signin(String nome, String password) throws Exception {
+        String messaggio = "\r\ncmd=" + SIGNIN + "\r\nnome=" + nome + "\r\npassword=" + password + "\r\n\r\n";
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run()  {
+                try {
+                    System.err.println("Superato il while della login");
+                    PrintWriter output = new PrintWriter(socket.getOutputStream());
+                    output.write(messaggio);
+                    output.flush();
+                } catch (IOException e) {
+                    e = new IOException("login non riuscito socket chiusa");
+                }
+            }
+        });
+        // serve per creare una sincronizzazione pezzotta con l'attivazione della socket
+        t.sleep(25);
+        t.start();
+        t.join();
+        setNome(nome);
+        setPassword(password);
+    }
+    public void creaGruppo(String gruppo) throws InterruptedException {
+        String utente = getNome();
+        String messaggio = "\r\ncmd=" + CREAGRUP + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\n\r\n";
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -130,8 +177,6 @@ public class Controller {
         });
         t.start();
         t.join();
-        setNome(nome);
-        setPassword(password);
     }
 
     public void sendMessaggio(String contenuto) throws InterruptedException {
@@ -156,16 +201,76 @@ public class Controller {
         t.join();
     }
 
+    public void cercaGruppo(String gruppo) throws InterruptedException {
+        String utente = getNome();
+        String messaggio = "\r\ncmd=" + SEARCHGRUP + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\n\r\n";
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while(socket == null || !socket.isConnected());
+                    PrintWriter output = new PrintWriter(socket.getOutputStream());
+                    output.write(messaggio);
+                    output.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+        t.join();
+    }
+
+    public void mandaNotifica(String gruppo) throws InterruptedException {
+        String utente = getNome();
+        String messaggio = "\r\ncmd=" + SENDNOTIFICA + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\n\r\n";
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while(socket == null || !socket.isConnected());
+                    PrintWriter output = new PrintWriter(socket.getOutputStream());
+                    output.write(messaggio);
+                    output.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+        t.join();
+    }
+
+    public void accettaNotifica(String gruppo, String richiedente) throws InterruptedException {
+        String utente = getNome();
+        String messaggio = "\r\ncmd=" + ACCETTAUT + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\nrichiedente=" + richiedente +"\r\n\r\n";
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while(socket == null || !socket.isConnected());
+                    PrintWriter output = new PrintWriter(socket.getOutputStream());
+                    output.write(messaggio);
+                    output.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+        t.join();
+    }
+
     public void ascolta() {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Socket socket_thread = getNewSocketInstance();
-                    DataInputStream input = new DataInputStream(socket_thread.getInputStream());
-                    BufferedReader br = new BufferedReader(new InputStreamReader(socket_thread.getInputStream()));
+                    socket = getNewSocketInstance();
+                    DataInputStream input = new DataInputStream(socket.getInputStream());
+                    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     while (ascolta == true) {
-                        if (socket != null && socket.isConnected()) {
+                        if (socket != null && !socket.isClosed()) {
                             String line = "";
                             String tmp = "";
                             while(br.ready() && (line = br.readLine()) != null) {
@@ -226,6 +331,7 @@ public class Controller {
         }
 
         if (codice.equals(CREAGRUPOK)) {
+
         }
 
         if (codice.equals(SENDMESSOK)) {
@@ -462,9 +568,6 @@ public class Controller {
     public void setAscoltaFalse() {
         ascolta = false;
     }
-
-    //TODO: scrivere la funzione setLoginOK()
-
     public static void setLoginModel(LoginViewModel loginModel) {
         Controller.loginModel = loginModel;
     }

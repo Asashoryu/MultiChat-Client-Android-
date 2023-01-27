@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_gruppiFragment);
             }
             else {
-                Toast.makeText(binding.getRoot().getContext(), loggato, Toast.LENGTH_LONG).show();
+                Toast.makeText(binding.getRoot().getContext(), loggato, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -39,12 +39,9 @@ public class LoginViewModel extends ViewModel {
             controller = Controller.getNewInstance();
             controller.setLoginModel(this);
             controller.login(nome, password);
-        } catch (InterruptedException e) {
-            // TODO: fai stampare il messaggio di errore
-            setLoggato("Errore nel view model prima della chiamata a controller.login()");
+        } catch (Exception e) {
+            setLoggato(e.getMessage());
         }
-
-        //deve avere un listener della variabile loggato:boolean di Controller
     }
 
 }

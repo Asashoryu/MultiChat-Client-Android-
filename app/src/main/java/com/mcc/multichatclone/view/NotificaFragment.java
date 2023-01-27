@@ -28,7 +28,7 @@ public class NotificaFragment extends Fragment {
         View view = binding.getRoot();
 
         NotificaViewModel notificaModel = new ViewModelProvider(this).get(NotificaViewModel.class);
-        binding.setNotificaViewModel(notificaModel);
+        binding.setLoginViewModel(notificaModel);
 
         return view;
     }
