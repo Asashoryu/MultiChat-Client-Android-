@@ -60,6 +60,9 @@ public class GruppiFragment extends Fragment {
                     return true;
                 case (R.id.search_group):
                     return true;
+                case (R.id.notifica):
+                    Navigation.findNavController(view).navigate(R.id.action_gruppiFragment_to_notificaFragment);
+                    return true;
                 default:
                     return false;
             }

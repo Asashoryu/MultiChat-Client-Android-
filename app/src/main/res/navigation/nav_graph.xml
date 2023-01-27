@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_gruppiFragment_to_creaGruppoFragment"
             app:destination="@id/creaGruppoFragment" />
+        <action
+            android:id="@+id/action_gruppiFragment_to_notificaFragment"
+            app:destination="@id/notificaFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -57,4 +60,9 @@
             android:id="@+id/action_registrazioneFragment_to_gruppiFragment"
             app:destination="@id/gruppiFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/notificaFragment"
+        android:name="com.mcc.multichatclone.view.NotificaFragment"
+        android:label="fragment_notifica"
+        tools:layout="@layout/fragment_notifica" />
 </navigation>
