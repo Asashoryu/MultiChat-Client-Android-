@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mcc.multichatclone.controller.Controller;
 import com.mcc.multichatclone.databinding.MessageBinding;
 import com.mcc.multichatclone.databinding.OtherMessageBinding;
 import com.mcc.multichatclone.model.Messaggio;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 public class ChatItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<Messaggio> messaggi = new ArrayList<>();
+
+    private Controller controller = Controller.getInstance();
     private final int SPEDITO = 1;
     private final int RICEVUTO = 2;
 
@@ -99,7 +102,7 @@ public class ChatItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     // specifica come interpretare i diversi messaggi
     @Override
     public int getItemViewType(int position) {
-        if (messaggi.get(position).getMittente().equals("alex")) {
+        if (messaggi.get(position).getMittente().equals(controller.getNome())) {
             return SPEDITO;
         }
         else {

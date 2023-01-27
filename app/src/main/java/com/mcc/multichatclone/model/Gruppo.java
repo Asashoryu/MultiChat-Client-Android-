@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Gruppo {
     private String nome;
 
-    private String proprietario;
+    private String amministratore;
 
     private ArrayList<Messaggio> messaggi;
 
@@ -26,12 +26,12 @@ public class Gruppo {
         this.nome = nome;
     }
 
-    public String getProprietario() {
-        return proprietario;
+    public String getAmministratore() {
+        return amministratore;
     }
 
-    public void setProprietario(String proprietario) {
-        this.proprietario = proprietario;
+    public void setAmministratore(String amministratore) {
+        this.amministratore = amministratore;
     }
 
     public ArrayList<Messaggio> getMessaggi() {

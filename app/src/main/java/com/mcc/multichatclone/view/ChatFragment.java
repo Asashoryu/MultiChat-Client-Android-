@@ -42,13 +42,14 @@ public class ChatFragment extends Fragment {
         });
 
         // libera l'EditText field a button premuto
-        chatModel.messaggioInviato.observe(getViewLifecycleOwner(), (inviato) ->
+        chatModel.ricevutoMessaggio.observe(getViewLifecycleOwner(), (ricevuto) ->
         {
-            if (inviato == true) {
+            if (ricevuto.equals("true")) {
                 //cancella il testo della TextView
-                binding.messageText.getText().clear();
+                //binding.messageText.getText().clear();
                 //scrolla la RecyclerView fino all'ultimo messaggio
                 binding.chatList.scrollToPosition(adapter.getItemCount() - 1);
+                chatModel.setRicevutoMessaggioFalse();
             }
         });
 
