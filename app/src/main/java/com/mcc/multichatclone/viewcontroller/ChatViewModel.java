@@ -52,6 +52,7 @@ public class ChatViewModel extends ViewModel{
             }
             else {
                 System.err.println("Il testo è :" + testo);
+                controller = Controller.getInstance();
                 controller.sendMessaggio(testo);
             }
         } catch (InterruptedException e) {
