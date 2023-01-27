@@ -36,6 +36,7 @@ public class ChatFragment extends Fragment {
 
         ChatItemAdapter adapter = new ChatItemAdapter();
         binding.chatList.setAdapter(adapter);
+        binding.chatList.scrollToPosition(adapter.getItemCount() - 1);
 
         chatModel.listaMessaggi.observe(getViewLifecycleOwner(), lista ->
         {
