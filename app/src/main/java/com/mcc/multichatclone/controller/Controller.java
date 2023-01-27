@@ -248,7 +248,7 @@ public class Controller {
 
             if (gruppoAggiornato == getGruppoNavigato()) {
                 chatModel.aggiorna();
-                chatModel.setRicevutoMessaggio("True");
+                chatModel.setRicevutoMessaggio("true");
             }
         }
 

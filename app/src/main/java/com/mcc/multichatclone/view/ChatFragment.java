@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.mcc.multichatclone.R;
 import com.mcc.multichatclone.databinding.FragmentChatBinding;
@@ -44,12 +45,17 @@ public class ChatFragment extends Fragment {
         // libera l'EditText field a button premuto
         chatModel.ricevutoMessaggio.observe(getViewLifecycleOwner(), (ricevuto) ->
         {
-            if (ricevuto.equals("true")) {
-                //cancella il testo della TextView
-                //binding.messageText.getText().clear();
-                //scrolla la RecyclerView fino all'ultimo messaggio
-                binding.chatList.scrollToPosition(adapter.getItemCount() - 1);
-                chatModel.setRicevutoMessaggioFalse();
+            if (!ricevuto.equals("false")) {
+                if (ricevuto.equals("true")) {
+                    //cancella il testo della TextView
+                    //binding.messageText.getText().clear();
+                    //scrolla la RecyclerView fino all'ultimo messaggio
+                    binding.chatList.scrollToPosition(adapter.getItemCount() - 1);
+                    chatModel.setRicevutoMessaggioFalse();
+                }
+                else {
+                    Toast.makeText(binding.getRoot().getContext(), ricevuto, Toast.LENGTH_LONG).show();
+                }
             }
         });
 
