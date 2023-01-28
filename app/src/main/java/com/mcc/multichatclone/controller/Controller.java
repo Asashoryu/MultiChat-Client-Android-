@@ -346,6 +346,11 @@ public class Controller {
         }
 
         if (codice.equals(CREAGRUPOK)) {
+            String body = getBody(pacchetto);
+            String gruppi = getGruppi(body);
+            ArrayList<String> listaGruppi = getListaGruppi(gruppi);
+            String gruppo = listaGruppi.get(0);
+            String nomeGruppo = getNomeGruppo(gruppo);
 
         }
 
