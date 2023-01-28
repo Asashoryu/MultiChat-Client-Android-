@@ -59,6 +59,7 @@ public class GruppiFragment extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_gruppiFragment_to_creaGruppoFragment);
                     return true;
                 case (R.id.search_group):
+                    Navigation.findNavController(view).navigate(R.id.action_gruppiFragment_to_cercaGruppoFragment);
                     return true;
                 case (R.id.notifica):
                     Navigation.findNavController(view).navigate(R.id.action_gruppiFragment_to_notificaFragment);

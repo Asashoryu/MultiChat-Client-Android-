@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".view.NotificheFragment">
+
+    <data>
+        <variable
+            name="cercaGruppoViewModel"
+            type="com.mcc.multichatclone.viewcontroller.CercaGruppoViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nome_gruppo"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:paddingHorizontal="10dp"
+            android:hint="@string/inserire_nome_gruppo"
+            android:background="@drawable/et_custom"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/button_cerca"
+            android:layout_width="233dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_custom"
+            android:onClick="@{() -> cercaGruppoViewModel.cercaGruppo(nomeGruppo.getText().toString)}"
+            android:text="@string/aggiungi_gruppo"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notifiche_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </LinearLayout>
+</layout>

@@ -319,7 +319,6 @@ public class Controller {
         System.out.println("codice messaggio : " + codiceMessaggio);
 
         if (codice.equals(LOGINOK)) {
-            //TODO: scrivere il codice di quando il login è avvenuto con successo
             String body = getBody(pacchetto);
             String gruppi = getGruppi(body);
             String messaggi;
@@ -334,7 +333,6 @@ public class Controller {
                     Messaggio nuovoMessaggio = new Messaggio(getMittenteMessaggio(messaggio), getContenutoMessaggio(messaggio), getMinutaggioMessaggio(messaggio));
                     nuovoGruppo.getMessaggi().add(nuovoMessaggio);
                 }
-                //TODO:fare lo stesso for ma per le notifiche
                 notifiche = getNotifiche(gruppo);
                 ArrayList<String> listaNotifiche = getListaNotifiche(notifiche);
                 for (String notifica : listaNotifiche) {
