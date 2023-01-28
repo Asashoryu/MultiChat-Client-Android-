@@ -3,6 +3,7 @@ package com.mcc.multichatclone.controller;
 import com.mcc.multichatclone.model.Gruppo;
 import com.mcc.multichatclone.model.Messaggio;
 import com.mcc.multichatclone.model.Notifica;
+import com.mcc.multichatclone.viewcontroller.CercaGruppoViewModel;
 import com.mcc.multichatclone.viewcontroller.ChatViewModel;
 import com.mcc.multichatclone.viewcontroller.CreaGruppoViewModel;
 import com.mcc.multichatclone.viewcontroller.GruppiViewModel;
@@ -60,7 +61,10 @@ public class Controller {
 
     private ArrayList<Gruppo> gruppiController;
 
+    private ArrayList<Gruppo> gruppiCercatiController;
+
     private ArrayList<Notifica> notificheController;
+
     private Gruppo gruppoNavigato;
     private static Controller controller = null;
 
@@ -76,15 +80,16 @@ public class Controller {
     private static GruppiViewModel gruppiModel;
 
     private static CreaGruppoViewModel creaGruppoModel;
+
+    private static CercaGruppoViewModel cercaGruppoModel;
     private static ChatViewModel chatModel;
 
     private static NotificheViewModel notificaModel;
 
-
-
     public Controller() {
         gruppiController = new ArrayList<>();
         notificheController = new ArrayList<>();
+        gruppiCercatiController = new ArrayList<>();
         setAscoltaFalse();
         setAscoltaTrue();
 
@@ -385,7 +390,16 @@ public class Controller {
         }
 
         if (codice.equals(SEARCHGRUPOK)) {
-
+            String body = getBody(pacchetto);
+            String gruppi = getGruppi(body);
+            ArrayList<String> listaGruppi = getListaGruppi(gruppi);
+            gruppiCercatiController = null;
+            gruppiCercatiController = new ArrayList<>();
+            for (String gruppo : listaGruppi) {
+                Gruppo nuovoGruppo = new Gruppo(getNomeGruppo(gruppo));
+                gruppiCercatiController.add(nuovoGruppo);
+            }
+            cercaGruppoModel.setTrovatiGruppi("true");
         }
 
         if (codice.equals(SENDNOTIFICAOK)) {
@@ -414,7 +428,7 @@ public class Controller {
         }
 
         if (codice.equals(SEARCHGRUPERR)) {
-            registrazioneModel.setRegistrato(codiceMessaggio);
+            cercaGruppoModel.setTrovatiGruppi(codiceMessaggio);
         }
 
         if (codice.equals(SENDNOTIFICAERR)) {
@@ -664,6 +678,10 @@ public class Controller {
     public static void setcreaGruppoModel(CreaGruppoViewModel creaGruppoModel) {
         Controller.creaGruppoModel = creaGruppoModel;
     }
+
+    public static void setCercaGruppoModel(CercaGruppoViewModel cercaGruppoModel) {
+        Controller.cercaGruppoModel = cercaGruppoModel;
+    }
     public static void setchatModel(ChatViewModel chatModel) {
         Controller.chatModel = chatModel;
     }
@@ -678,6 +696,14 @@ public class Controller {
 
     public void setGruppi(ArrayList<Gruppo> gruppi) {
         this.gruppiController = gruppi;
+    }
+
+    public ArrayList<Gruppo> getGruppiCercati() {
+        return gruppiCercatiController;
+    }
+
+    public void setGruppiCercati(ArrayList<Gruppo> gruppi) {
+        this.gruppiCercatiController = gruppi;
     }
 
     public ArrayList<Notifica> getNotifiche() {

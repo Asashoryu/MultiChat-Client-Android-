@@ -16,6 +16,11 @@ public class CercaGruppoViewModel extends ViewModel {
 
     Controller controller;
 
+    public void setlistaGruppiCercati() {
+        controller = Controller.getInstance();
+        listaGruppi.setValue(controller.getGruppiCercati());
+    }
+
     public void setTrovatiGruppi(String text) {
         System.err.println("Entrato in setTrovatiGruppi con : " + text);
         trovatiGruppi.postValue(text);
@@ -24,6 +29,7 @@ public class CercaGruppoViewModel extends ViewModel {
     public void cercaGruppo(String text) {
         try {
             controller = Controller.getInstance();
+            controller.setCercaGruppoModel(this);
             controller.cercaGruppo(text);
         } catch (Exception e) {
             setTrovatiGruppi(e.getMessage());

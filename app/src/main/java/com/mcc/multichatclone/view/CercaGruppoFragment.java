@@ -44,7 +44,7 @@ public class CercaGruppoFragment extends Fragment {
         {
             if (!messaggio.equals("false")) {
                 if (messaggio.equals("true")) {
-                    adapter.setData(cercaGruppoModel.listaGruppi.getValue());
+                    cercaGruppoModel.setlistaGruppiCercati();
                 }
                 else {
                     Toast.makeText(binding.getRoot().getContext(), messaggio, Toast.LENGTH_LONG).show();
