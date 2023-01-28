@@ -32,8 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/minutaggio"
-            android:layout_alignStart="@id/message_body"
+            android:layout_alignEnd="@id/message_body"
             android:layout_below="@id/message_body"
+            android:textSize="10dp"
             android:paddingTop="4dp"
             android:text="@{messaggioInviato.minutaggioDaMostrare}" />
 

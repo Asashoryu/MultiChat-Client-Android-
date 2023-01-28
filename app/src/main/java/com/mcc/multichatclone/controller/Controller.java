@@ -62,7 +62,7 @@ public class Controller {
     private static final String SIGNGIAREGISTRATO = "213";
     private static final String CREAGRUPGIAREGISTRATO = "313";
     private static Socket socket = null;
-    private static final String indirizzoServer = "192.168.1.8";
+    private static final String indirizzoServer = "192.168.1.145";
     private static final int portaServer = 10000;
     private static String pacchetto = null;
     // comandi (client)
