@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mcc.multichatclone.databinding.FragmentNotificheBinding;
 import com.mcc.multichatclone.viewcontroller.GruppiItemAdapter;
@@ -31,6 +32,14 @@ public class NotificheFragment extends Fragment {
 
         NotificheItemAdapter adapter = new NotificheItemAdapter();
         binding.notificheList.setAdapter(adapter);
+
+        notificheModel.messaggio.observe(getViewLifecycleOwner(), messaggio ->
+        {
+            if (!messaggio.equals("false")) {
+                Toast.makeText(binding.getRoot().getContext(), messaggio, Toast.LENGTH_SHORT).show();
+                notificheModel.setMessaggioFalse();
+            }
+        });
 
         notificheModel.listaNotifiche.observe(getViewLifecycleOwner(), lista ->
         {

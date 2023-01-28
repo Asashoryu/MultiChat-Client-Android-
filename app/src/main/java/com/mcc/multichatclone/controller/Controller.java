@@ -33,6 +33,9 @@ public class Controller {
     private static final String SEARCHGRUP = "500";
     private static final String SENDNOTIFICA = "600";
     private static final String ACCETTAUT = "700";
+
+    private static final String RIFIUTANOT = "800";
+    ;
     // comandi OK (server)
     private static final String LOGINOK = "111";
     private static final String SIGNINOK = "211";
@@ -41,6 +44,8 @@ public class Controller {
     private static final String SEARCHGRUPOK = "511";
     private static final String SENDNOTIFICAOK =  "611";
     private static final String ACCETTAUTOK = "711";
+
+    private static final String RIFIUTANOTOK = "811";
     // comandi ERROR (server)
     private static final String LOGINERR = "112";
     private static final String SIGNINERR = "212";
@@ -49,6 +54,9 @@ public class Controller {
     private static final String SEARCHGRUPERR = "512";
     private static final String SENDNOTIFICAERR =  "612";
     private static final String ACCETTAUTERR = "712";
+
+    private static final String RIFIUTANOTERR = "812";
+
     // 3
     private static final String LOGINNONTROVATO = "113";
     private static final String SIGNGIAREGISTRATO = "213";
@@ -278,6 +286,26 @@ public class Controller {
         t.join();
     }
 
+    public void rifiutaNotifica(String gruppo, String richiedente) throws InterruptedException {
+        String utente = getNome();
+        String messaggio = "\r\ncmd=" + RIFIUTANOT + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\nrichiedente=" + richiedente +"\r\n\r\n";
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while(socket == null || !socket.isConnected());
+                    PrintWriter output = new PrintWriter(socket.getOutputStream());
+                    output.write(messaggio);
+                    output.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+        t.join();
+    }
+
     public void ascolta() {
         Thread t = new Thread(new Runnable() {
             @Override
@@ -393,6 +421,7 @@ public class Controller {
             String body = getBody(pacchetto);
             String gruppi = getGruppi(body);
             ArrayList<String> listaGruppi = getListaGruppi(gruppi);
+            gruppiCercatiController.clear();
             gruppiCercatiController = null;
             gruppiCercatiController = new ArrayList<>();
             for (String gruppo : listaGruppi) {
@@ -403,11 +432,71 @@ public class Controller {
         }
 
         if (codice.equals(SENDNOTIFICAOK)) {
-
+            String body = getBody(pacchetto);
+            String gruppi = getGruppi(body);
+            String messaggi;
+            ArrayList<String> listaGruppi = getListaGruppi(gruppi);
+            String gruppo = listaGruppi.get(0);
+            String nomeGruppo = getNomeGruppo(gruppo);
+            // se il gruppo non è presente allora l'utente è il richiedente
+            if (gruppiController.stream().filter(g -> g.getNome().equals(nomeGruppo)).collect(Collectors.toList()).isEmpty()) {
+                if (notificaModel != null) {
+                    notificaModel.setMessaggio(codiceMessaggio);
+                }
+            }
+            else {
+                String notifiche = getNotifiche(gruppo);
+                ArrayList<String> listaNotifiche = getListaNotifiche(notifiche);
+                notificheController.add(new Notifica(getRichiedenteNotifica(listaNotifiche.get(0)), getGruppoNotifica(listaNotifiche.get(0))));
+                if (notificaModel != null) {
+                    notificaModel.aggiornaNotifiche();
+                }
+            }
         }
 
         if (codice.equals(ACCETTAUTOK)) {
+            String body = getBody(pacchetto);
+            String gruppi = getGruppi(body);
+            String messaggi;
+            ArrayList<String> listaGruppi = getListaGruppi(gruppi);
+            String gruppo = listaGruppi.get(0);
+            String nomeGruppo = getNomeGruppo(gruppo);
+            // se il gruppo non è presente allora l'utente è il richiedente a cui aggiungere il gruppo
+            if (gruppiController.stream().filter(g -> g.getNome().equals(nomeGruppo)).collect(Collectors.toList()).isEmpty()) {
+                Gruppo nuovoGruppo = new Gruppo(getNomeGruppo(nomeGruppo));
+                gruppiController.add(0, nuovoGruppo);
 
+                messaggi = getMessaggi(gruppo);
+                ArrayList<String> listaMessaggi = getListaMessaggi(messaggi);
+                for (String messaggio : listaMessaggi) {
+                    String mittente = getMittenteMessaggio(messaggio);
+                    String contenuto = getContenutoMessaggio(messaggio);
+                    String minutaggio = getMinutaggioMessaggio(messaggio);
+
+                    nuovoGruppo.getMessaggi().add(new Messaggio(mittente, contenuto, minutaggio));
+                }
+                gruppiModel.aggiornaGruppi();
+            }
+            //altrimenti rimuovi la notifica
+            else {
+                notificheController.remove(notificheController.stream().filter(n -> n.getGruppoRichiesto().equals(nomeGruppo)).collect(Collectors.toList()).get(0));
+                if (notificaModel != null) {
+                    notificaModel.aggiornaNotifiche();
+                }
+            }
+
+        }
+
+        if (codice.equals(RIFIUTANOTOK)) {
+            String body = getBody(pacchetto);
+            String gruppi = getGruppi(body);
+            ArrayList<String> listaGruppi = getListaGruppi(gruppi);
+            String gruppo = listaGruppi.get(0);
+            String nomeGruppo = getNomeGruppo(gruppo);
+            notificheController.remove(notificheController.stream().filter(n -> n.getGruppoRichiesto().equals(nomeGruppo)).collect(Collectors.toList()).get(0));
+            if (notificaModel != null) {
+                notificaModel.aggiornaNotifiche();
+            }
         }
 
         if (codice.equals(LOGINERR)) {
@@ -432,11 +521,19 @@ public class Controller {
         }
 
         if (codice.equals(SENDNOTIFICAERR)) {
-
+            cercaGruppoModel.setTrovatiGruppi(codiceMessaggio);
         }
 
         if (codice.equals(ACCETTAUTERR)) {
+            if (notificaModel != null) {
+                notificaModel.setMessaggio(codiceMessaggio);
+            }
+        }
 
+        if (codice.equals(RIFIUTANOTERR)) {
+            if (notificaModel != null) {
+                notificaModel.setMessaggio(codiceMessaggio);
+            }
         }
 
         if (codice.equals(LOGINNONTROVATO)) {
@@ -671,7 +768,7 @@ public class Controller {
         Controller.registrazioneModel = registrazioneModel;
     }
 
-    public static void setgruppiModel(GruppiViewModel gruppiModel) {
+    public static void setGruppiModel(GruppiViewModel gruppiModel) {
         Controller.gruppiModel = gruppiModel;
     }
 

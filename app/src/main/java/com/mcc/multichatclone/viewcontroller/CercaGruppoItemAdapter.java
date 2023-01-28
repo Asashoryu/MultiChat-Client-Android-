@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mcc.multichatclone.controller.Controller;
 import com.mcc.multichatclone.databinding.GruppoItemV2Binding;
 import com.mcc.multichatclone.databinding.NotificaItemBinding;
 import com.mcc.multichatclone.model.Gruppo;
@@ -27,6 +28,8 @@ public class CercaGruppoItemAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         GruppoItemV2Binding binding;
 
+        Controller controller;
+
         public ViewHolder(@NonNull GruppoItemV2Binding binding) {
             super(binding.getRoot());
             this.binding = binding;
@@ -40,10 +43,18 @@ public class CercaGruppoItemAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         public void bind(Gruppo gruppo) {
             binding.setGruppo(gruppo);
+
+            controller = Controller.getInstance();
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    try {
+                        System.err.println("il valore di gruppo è " + gruppo);
+                        if (gruppo != null) System.out.println(gruppo.getNome());
+                        controller.mandaNotifica(gruppo.getNome());
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
         }

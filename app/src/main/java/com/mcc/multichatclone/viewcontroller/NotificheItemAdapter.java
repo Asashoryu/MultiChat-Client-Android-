@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mcc.multichatclone.controller.Controller;
 import com.mcc.multichatclone.databinding.NotificaItemBinding;
 import com.mcc.multichatclone.model.Notifica;
 
@@ -25,6 +26,8 @@ public class NotificheItemAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         NotificaItemBinding binding;
 
+        Controller controller;
+
         public ViewHolder(@NonNull NotificaItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
@@ -38,10 +41,28 @@ public class NotificheItemAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         public void bind(Notifica notifica) {
             binding.setNotifica(notifica);
-            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+
+            controller = Controller.getInstance();
+            binding.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    controller = Controller.getInstance();
+                    try {
+                        controller.accettaNotifica(notifica.getGruppoRichiesto(), notifica.getRichiedente());
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            binding.refuse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    controller = Controller.getInstance();
+                    try {
+                        controller.rifiutaNotifica(notifica.getGruppoRichiesto(), notifica.getRichiedente());
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
         }

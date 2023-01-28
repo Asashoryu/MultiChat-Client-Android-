@@ -16,7 +16,10 @@ public class GruppiViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> navigare = new MutableLiveData<>(false);
 
-
+    public GruppiViewModel() {
+        controller = Controller.getInstance();
+        controller.setGruppiModel(this);
+    }
     public void naviga() {
         navigare.setValue(true);
         navigare.setValue(false);

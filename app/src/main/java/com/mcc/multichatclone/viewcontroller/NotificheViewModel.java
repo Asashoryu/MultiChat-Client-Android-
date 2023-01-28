@@ -16,6 +16,8 @@ public class NotificheViewModel extends ViewModel {
 
     public MutableLiveData<ArrayList<Notifica>> listaNotifiche = new MutableLiveData<ArrayList<Notifica>>();
 
+    public MutableLiveData<String> messaggio = new MutableLiveData<>("false");
+
     private ArrayList<Notifica> notifiche;
 
     public NotificheViewModel() {
@@ -23,6 +25,18 @@ public class NotificheViewModel extends ViewModel {
         controller.setNotificheModel(this);
         notifiche = controller.getNotifiche();
         listaNotifiche.setValue(notifiche);
+    }
+
+    public void aggiornaNotifiche() {
+        listaNotifiche.postValue(notifiche);
+    }
+
+    public void setMessaggio(String messaggio) {
+        this.messaggio.postValue(messaggio);
+    }
+
+    public void setMessaggioFalse() {
+        this.messaggio.setValue("false");
     }
 
     public void naviga() {
