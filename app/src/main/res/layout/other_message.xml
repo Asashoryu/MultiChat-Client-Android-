@@ -37,5 +37,14 @@
             android:textSize="18sp"
             android:text="@{messaggioRicevuto.contenuto}" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/minutaggio"
+            android:layout_alignEnd="@id/message_body"
+            android:layout_below="@id/message_body"
+            android:paddingTop="4dp"
+            android:text="@{messaggioRicevuto.minutaggio}" />
+
     </RelativeLayout>
 </layout>

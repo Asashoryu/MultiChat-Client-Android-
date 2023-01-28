@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -59,6 +60,14 @@ public class ChatFragment extends Fragment {
                 }
             }
         });
+
+        final Observer<Boolean> osservaSeCancellareBarra = cancellaBarraMessaggio -> {
+            if (cancellaBarraMessaggio == true) {
+                binding.messageText.setText("");
+            }
+        };
+
+        chatModel.cancellareBarraMessaggio.observe(getViewLifecycleOwner(), osservaSeCancellareBarra);
 
         return view;
     }

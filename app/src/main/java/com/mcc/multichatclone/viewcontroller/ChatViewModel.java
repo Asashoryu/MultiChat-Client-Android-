@@ -17,6 +17,8 @@ public class ChatViewModel extends ViewModel{
 
     public MutableLiveData<String> ricevutoMessaggio = new MutableLiveData<>("false");
 
+    public MutableLiveData<Boolean> cancellareBarraMessaggio = new MutableLiveData<Boolean>(false);
+
     private Controller controller;
 
     public MutableLiveData<ArrayList<Messaggio>> listaMessaggi = new MutableLiveData<ArrayList<Messaggio>>();
@@ -54,9 +56,15 @@ public class ChatViewModel extends ViewModel{
                 System.err.println("Il testo è :" + testo);
                 controller = Controller.getInstance();
                 controller.sendMessaggio(testo);
+                cancellaBarraMessaggio();
             }
         } catch (InterruptedException e) {
             setRicevutoMessaggio(e.getMessage());
         }
+    }
+
+    public void cancellaBarraMessaggio () {
+        cancellareBarraMessaggio.setValue(true);
+        cancellareBarraMessaggio.setValue(false);
     }
 }
