@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.mcc.multichatclone.controller.Controller;
 
-public class NotificaViewModel extends ViewModel {
+public class NotificheViewModel extends ViewModel {
 
     Controller controller;
     public MutableLiveData<Boolean> navigare = new MutableLiveData<>(false);

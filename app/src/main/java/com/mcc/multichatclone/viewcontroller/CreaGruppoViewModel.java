@@ -27,7 +27,7 @@ public class CreaGruppoViewModel extends ViewModel {
 
     public void aggiungiGruppo(String text) {
         try {
-            controller = Controller.getNewInstance();
+            controller = Controller.getInstance();
             controller.setcreaGruppoModel(this);
             controller.creaGruppo(text);
         } catch (Exception e) {

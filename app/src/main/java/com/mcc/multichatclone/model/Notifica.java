@@ -4,11 +4,14 @@ public class Notifica {
 
     private String richiedente;
 
-    private String gruppo_richiesto;
+    private String gruppoRichiesto;
 
-    public Notifica(String richiedente, String gruppo_richiesto) {
+    private String messaggioNotifica = "";
+
+    public Notifica(String richiedente, String gruppoRichiesto) {
         this.richiedente = richiedente;
-        this.gruppo_richiesto = gruppo_richiesto;
+        this.gruppoRichiesto = gruppoRichiesto;
+        setMessaggioNotifica("Richiesta di accesso al gruppo " + gruppoRichiesto + " da parte di " + richiedente);
     }
 
     public String getRichiedente() {
@@ -19,11 +22,19 @@ public class Notifica {
         this.richiedente = richiedente;
     }
 
-    public String getGruppo_richiesto() {
-        return gruppo_richiesto;
+    public String getGruppoRichiesto() {
+        return gruppoRichiesto;
     }
 
-    public void setGruppo_richiesto(String gruppo_richiesto) {
-        this.gruppo_richiesto = gruppo_richiesto;
+    public void setGruppoRichiesto(String gruppoRichiesto) {
+        this.gruppoRichiesto = gruppoRichiesto;
+    }
+
+    public String getMessaggioNotifica() {
+        return messaggioNotifica;
+    }
+
+    public void setMessaggioNotifica(String messaggioNotifica) {
+        this.messaggioNotifica = messaggioNotifica;
     }
 }

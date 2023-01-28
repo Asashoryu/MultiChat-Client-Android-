@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcc.multichatclone.R;
 import com.mcc.multichatclone.databinding.GruppoItemV2Binding;
-import com.mcc.multichatclone.generated.callback.OnClickListener;
 import com.mcc.multichatclone.model.Gruppo;
 
 import java.util.ArrayList;

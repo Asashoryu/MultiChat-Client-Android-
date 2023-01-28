@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mcc.multichatclone.R;
 import com.mcc.multichatclone.databinding.FragmentCreaGruppoBinding;
@@ -32,8 +33,15 @@ public class CreaGruppoFragment extends Fragment {
         binding.setCreaGruppoModel(creaGruppoModel);
 
         binding.getCreaGruppoModel().messaggioErrore.observe(getViewLifecycleOwner(), messaggio-> {
-            if (messaggio.equals("true")) {
-                Navigation.findNavController(view).popBackStack();
+            if (!messaggio.equals("false")) {
+                if (messaggio.equals("true")) {
+                    Navigation.findNavController(view).popBackStack();
+                    creaGruppoModel.setMessaggioErroreFalse();
+                }
+                else {
+                    Toast.makeText(binding.getRoot().getContext(), messaggio, Toast.LENGTH_LONG).show();
+                    creaGruppoModel.setMessaggioErroreFalse();
+                }
         }});
 
         binding.getCreaGruppoModel().indietro.observe(getViewLifecycleOwner(), tornaIndietro->{ if (tornaIndietro) {

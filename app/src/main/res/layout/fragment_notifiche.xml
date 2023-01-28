@@ -2,12 +2,12 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".view.NotificaFragment">
+    tools:context=".view.NotificheFragment">
 
     <data>
     <variable
-        name="loginViewModel"
-        type="com.mcc.multichatclone.viewcontroller.NotificaViewModel" />
+        name="notificheViewModel"
+        type="com.mcc.multichatclone.viewcontroller.NotificheViewModel" />
     </data>
 
     <LinearLayout
@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notifica_list"
+            android:id="@+id/notifiche_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/notificaFragment"
-        android:name="com.mcc.multichatclone.view.NotificaFragment"
+        android:name="com.mcc.multichatclone.view.NotificheFragment"
         android:label="fragment_notifica"
-        tools:layout="@layout/fragment_notifica" />
+        tools:layout="@layout/fragment_notifiche" />
 </navigation>

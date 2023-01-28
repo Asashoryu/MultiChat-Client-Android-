@@ -1,31 +1,25 @@
 package com.mcc.multichatclone.controller;
 
-import android.text.BoringLayout;
-
 import com.mcc.multichatclone.model.Gruppo;
 import com.mcc.multichatclone.model.Messaggio;
 import com.mcc.multichatclone.viewcontroller.ChatViewModel;
 import com.mcc.multichatclone.viewcontroller.CreaGruppoViewModel;
 import com.mcc.multichatclone.viewcontroller.GruppiViewModel;
 import com.mcc.multichatclone.viewcontroller.LoginViewModel;
-import com.mcc.multichatclone.viewcontroller.NotificaViewModel;
+import com.mcc.multichatclone.viewcontroller.NotificheViewModel;
 import com.mcc.multichatclone.viewcontroller.RegistrazioneViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.nio.Buffer;
-import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +52,7 @@ public class Controller {
     private static final String SIGNGIAREGISTRATO = "213";
     private static final String CREAGRUPGIAREGISTRATO = "313";
     private static Socket socket = null;
-    private static final String indirizzoServer = "192.168.1.145";
+    private static final String indirizzoServer = "192.168.1.8";
     private static final int portaServer = 10000;
     private static String pacchetto = null;
     // comandi (client)
@@ -81,7 +75,7 @@ public class Controller {
     private static CreaGruppoViewModel creaGruppoModel;
     private static ChatViewModel chatModel;
 
-    private static NotificaViewModel notificaModel;
+    private static NotificheViewModel notificaModel;
 
 
 
@@ -352,6 +346,9 @@ public class Controller {
             String gruppo = listaGruppi.get(0);
             String nomeGruppo = getNomeGruppo(gruppo);
 
+            getGruppi().add(new Gruppo(nomeGruppo));
+
+            creaGruppoModel.setMessaggioErrore("true");
         }
 
         if (codice.equals(SENDMESSOK)) {
@@ -400,7 +397,7 @@ public class Controller {
         }
 
         if (codice.equals(CREAGRUPERR)) {
-
+            creaGruppoModel.setMessaggioErrore(codiceMessaggio);
         }
 
         if (codice.equals(SENDMESSERR)) {
@@ -428,7 +425,7 @@ public class Controller {
         }
 
         if (codice.equals(CREAGRUPGIAREGISTRATO)) {
-
+            creaGruppoModel.setMessaggioErrore(codiceMessaggio);
         }
     }
 
@@ -612,7 +609,7 @@ public class Controller {
         Controller.chatModel = chatModel;
     }
 
-    public static void setnotificaModel(NotificaViewModel notificaModel) {
+    public static void setnotificaModel(NotificheViewModel notificaModel) {
         Controller.notificaModel = notificaModel;
     }
 
