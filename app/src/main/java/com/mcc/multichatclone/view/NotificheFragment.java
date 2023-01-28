@@ -32,6 +32,11 @@ public class NotificheFragment extends Fragment {
         NotificheItemAdapter adapter = new NotificheItemAdapter();
         binding.notificheList.setAdapter(adapter);
 
+        notificheModel.listaNotifiche.observe(getViewLifecycleOwner(), lista ->
+        {
+            adapter.setData(lista);
+        });
+
         return view;
     }
 }

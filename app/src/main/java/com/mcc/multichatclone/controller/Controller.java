@@ -2,6 +2,7 @@ package com.mcc.multichatclone.controller;
 
 import com.mcc.multichatclone.model.Gruppo;
 import com.mcc.multichatclone.model.Messaggio;
+import com.mcc.multichatclone.model.Notifica;
 import com.mcc.multichatclone.viewcontroller.ChatViewModel;
 import com.mcc.multichatclone.viewcontroller.CreaGruppoViewModel;
 import com.mcc.multichatclone.viewcontroller.GruppiViewModel;
@@ -58,6 +59,8 @@ public class Controller {
     // comandi (client)
 
     private ArrayList<Gruppo> gruppiController;
+
+    private ArrayList<Notifica> notificheController;
     private Gruppo gruppoNavigato;
     private static Controller controller = null;
 
@@ -81,6 +84,7 @@ public class Controller {
 
     public Controller() {
         gruppiController = new ArrayList<>();
+        notificheController = new ArrayList<>();
         setAscoltaFalse();
         setAscoltaTrue();
 
@@ -319,6 +323,7 @@ public class Controller {
             String body = getBody(pacchetto);
             String gruppi = getGruppi(body);
             String messaggi;
+            String notifiche;
             ArrayList<String> listaGruppi = getListaGruppi(gruppi);
             for (String gruppo : listaGruppi) {
                 Gruppo nuovoGruppo = new Gruppo(getNomeGruppo(gruppo));
@@ -330,6 +335,12 @@ public class Controller {
                     nuovoGruppo.getMessaggi().add(nuovoMessaggio);
                 }
                 //TODO:fare lo stesso for ma per le notifiche
+                notifiche = getNotifiche(gruppo);
+                ArrayList<String> listaNotifiche = getListaNotifiche(notifiche);
+                for (String notifica : listaNotifiche) {
+                    Notifica nuovaNotifica = new Notifica(getRichiedenteNotifica(notifica), getGruppoNotifica(notifica));
+                    notificheController.add(nuovaNotifica);
+                }
             }
 
             loginModel.setLoggato("true");
@@ -578,6 +589,56 @@ public class Controller {
         return minutaggio;
     }
 
+    private static String getNotifiche(String gruppo) {
+        int inizio;
+        int fine;
+
+        inizio = gruppo.indexOf("<notifiche>");
+        fine = gruppo.lastIndexOf("</notifiche>");
+
+        String notifiche = gruppo.substring(inizio + "<notifiche>\r\n".length(), fine);
+
+        return notifiche;
+    }
+
+    private static ArrayList<String> getListaNotifiche(String notifiche) {
+        int inizio;
+        int fine;
+
+        ArrayList<String> listaMessaggi = new ArrayList<>();
+        while ((inizio = notifiche.indexOf("<notifica>")) != -1 && (fine = notifiche.indexOf("</notifica>")) != -1) {
+            String notifica = notifiche.substring(inizio + "<notifica>\r\n".length(), fine);
+            listaMessaggi.add(notifica);
+            notifiche = notifiche.substring(fine + "</notifica>\r\n".length());
+        }
+
+        return listaMessaggi;
+    }
+
+    private static String getRichiedenteNotifica(String notifica) {
+        String[] token;
+        int indice;
+        String messaggio = "";
+
+        token = notifica.split("\r\n");
+
+        indice = token[0].indexOf("=");
+        messaggio = token[0].substring(indice + 1);
+        return messaggio;
+    }
+
+    private static String getGruppoNotifica(String notifica) {
+        String[] token;
+        int indice;
+        String messaggio = "";
+
+        token = notifica.split("\r\n");
+
+        indice = token[1].indexOf("=");
+        messaggio = token[1].substring(indice + 1);
+        return messaggio;
+    }
+
     public void setAscoltaTrue() {
         ascolta = true;
         ascolta();
@@ -609,7 +670,7 @@ public class Controller {
         Controller.chatModel = chatModel;
     }
 
-    public static void setnotificaModel(NotificheViewModel notificaModel) {
+    public static void setNotificheModel(NotificheViewModel notificaModel) {
         Controller.notificaModel = notificaModel;
     }
 
@@ -619,6 +680,14 @@ public class Controller {
 
     public void setGruppi(ArrayList<Gruppo> gruppi) {
         this.gruppiController = gruppi;
+    }
+
+    public ArrayList<Notifica> getNotifiche() {
+        return notificheController;
+    }
+
+    public void setNotifiche(ArrayList<Notifica> notifiche) {
+        this.notificheController = notifiche;
     }
 
     public Gruppo getGruppoNavigato() {
