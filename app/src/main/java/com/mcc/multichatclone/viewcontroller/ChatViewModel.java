@@ -28,7 +28,7 @@ public class ChatViewModel extends ViewModel{
         listaMessaggi.setValue(messaggiChat);
     }
 
-    public void setRicevutoMessaggio(String text) {
+    public void setRicevutoMessaggio(@NotNull String text) {
         System.err.println("Entrato in ricevuto messaggio con : " + text);
         ricevutoMessaggio.postValue(text);
     }

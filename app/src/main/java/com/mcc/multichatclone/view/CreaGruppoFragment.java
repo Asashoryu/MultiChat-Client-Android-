@@ -31,7 +31,12 @@ public class CreaGruppoFragment extends Fragment {
         CreaGruppoViewModel creaGruppoModel = new ViewModelProvider(this).get(CreaGruppoViewModel.class);
         binding.setCreaGruppoModel(creaGruppoModel);
 
-        binding.getCreaGruppoModel().indietro.observe(getViewLifecycleOwner(),tornaIndietro->{ if (tornaIndietro) {
+        binding.getCreaGruppoModel().messaggioErrore.observe(getViewLifecycleOwner(), messaggio->{
+            if (messaggio.equals("true")) {
+            Navigation.findNavController(view).popBackStack();
+        }});
+
+        binding.getCreaGruppoModel().indietro.observe(getViewLifecycleOwner(), tornaIndietro->{ if (tornaIndietro) {
             Navigation.findNavController(view).popBackStack();
         }});
 

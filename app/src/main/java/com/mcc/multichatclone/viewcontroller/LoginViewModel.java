@@ -34,7 +34,6 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login(String nome, String password) {
-
         try {
             controller = Controller.getNewInstance();
             controller.setLoginModel(this);

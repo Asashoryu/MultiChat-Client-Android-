@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mcc.multichatclone.R;
 import com.mcc.multichatclone.databinding.FragmentLoginBinding;
@@ -37,11 +38,18 @@ public class RegistrazioneFragment extends Fragment {
             }
         };
 
-        final Observer<Boolean> osservaSeAndareAvanti = nuovoValore -> {
-            if (nuovoValore == true) {
+        registrazioneModel.registrato.observe(getViewLifecycleOwner(), (registrato) -> {
+            if (registrato.equals("false")) {
+
+            }
+            else if (registrato.equals("true")) {
+                registrazioneModel.setRegistratoFalse();
                 Navigation.findNavController(view).navigate(R.id.action_registrazioneFragment_to_gruppiFragment);
             }
-        };
+            else {
+                Toast.makeText(binding.getRoot().getContext(), registrato, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         registrazioneModel.indietro.observe(getViewLifecycleOwner(), osservaSeTornareIndietro);
 

@@ -5,7 +5,11 @@ import android.text.BoringLayout;
 import com.mcc.multichatclone.model.Gruppo;
 import com.mcc.multichatclone.model.Messaggio;
 import com.mcc.multichatclone.viewcontroller.ChatViewModel;
+import com.mcc.multichatclone.viewcontroller.CreaGruppoViewModel;
+import com.mcc.multichatclone.viewcontroller.GruppiViewModel;
 import com.mcc.multichatclone.viewcontroller.LoginViewModel;
+import com.mcc.multichatclone.viewcontroller.NotificaViewModel;
+import com.mcc.multichatclone.viewcontroller.RegistrazioneViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -69,7 +73,17 @@ public class Controller {
     private static Boolean ascolta = false;
 
     private static LoginViewModel loginModel;
+
+    private static RegistrazioneViewModel registrazioneModel;
+
+    private static GruppiViewModel gruppiModel;
+
+    private static CreaGruppoViewModel creaGruppoModel;
     private static ChatViewModel chatModel;
+
+    private static NotificaViewModel notificaModel;
+
+
 
     public Controller() {
         gruppiController = new ArrayList<>();
@@ -125,7 +139,7 @@ public class Controller {
                     output.write(messaggio);
                     output.flush();
                 } catch (IOException e) {
-                    e = new IOException("login non riuscito socket chiusa");
+                    System.out.println("login non riuscito socket chiusa");
                 }
             }
         });
@@ -143,12 +157,12 @@ public class Controller {
             @Override
             public void run()  {
                 try {
-                    System.err.println("Superato il while della login");
+                    System.err.println("Superato il while della signin");
                     PrintWriter output = new PrintWriter(socket.getOutputStream());
                     output.write(messaggio);
                     output.flush();
                 } catch (IOException e) {
-                    e = new IOException("login non riuscito socket chiusa");
+                    System.out.println("signin non riuscito socket chiusa");
                 }
             }
         });
@@ -328,6 +342,7 @@ public class Controller {
         }
 
         if (codice.equals(SIGNINOK)) {
+            registrazioneModel.setRegistrato("true");
         }
 
         if (codice.equals(CREAGRUPOK)) {
@@ -371,11 +386,12 @@ public class Controller {
         }
 
         if (codice.equals(LOGINERR)) {
+            System.err.println("LOGINERR con codice messaggio: " + codiceMessaggio);
             loginModel.setLoggato(codiceMessaggio);
         }
 
         if (codice.equals(SIGNINERR)) {
-
+            registrazioneModel.setRegistrato(codiceMessaggio);
         }
 
         if (codice.equals(CREAGRUPERR)) {
@@ -387,7 +403,7 @@ public class Controller {
         }
 
         if (codice.equals(SEARCHGRUPERR)) {
-
+            registrazioneModel.setRegistrato(codiceMessaggio);
         }
 
         if (codice.equals(SENDNOTIFICAERR)) {
@@ -403,7 +419,7 @@ public class Controller {
         }
 
         if (codice.equals(SIGNGIAREGISTRATO)) {
-
+            registrazioneModel.setRegistrato(codiceMessaggio);
         }
 
         if (codice.equals(CREAGRUPGIAREGISTRATO)) {
@@ -574,6 +590,25 @@ public class Controller {
 
     public static void setChatModel(ChatViewModel chatModel) {
         Controller.chatModel = chatModel;
+    }
+
+    public static void setRegistrazioneModel(RegistrazioneViewModel registrazioneModel) {
+        Controller.registrazioneModel = registrazioneModel;
+    }
+
+    public static void setgruppiModel(GruppiViewModel gruppiModel) {
+        Controller.gruppiModel = gruppiModel;
+    }
+
+    public static void setcreaGruppoModel(CreaGruppoViewModel creaGruppoModel) {
+        Controller.creaGruppoModel = creaGruppoModel;
+    }
+    public static void setchatModel(ChatViewModel chatModel) {
+        Controller.chatModel = chatModel;
+    }
+
+    public static void setnotificaModel(NotificaViewModel notificaModel) {
+        Controller.notificaModel = notificaModel;
     }
 
     public ArrayList<Gruppo> getGruppi() {
