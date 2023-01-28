@@ -44,7 +44,7 @@
             android:layout_alignEnd="@id/message_body"
             android:layout_below="@id/message_body"
             android:paddingTop="4dp"
-            android:text="@{messaggioRicevuto.minutaggio}" />
+            android:text="@{messaggioRicevuto.minutaggioDaMostrare}" />
 
     </RelativeLayout>
 </layout>

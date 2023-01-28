@@ -1,10 +1,16 @@
 package com.mcc.multichatclone.model;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
 public class Messaggio {
     private String mittente;
     private String contenuto;
 
     private String minutaggio;
+
+    private String minutaggioDaMostrare;
 
     public Messaggio(){}
 
@@ -16,6 +22,7 @@ public class Messaggio {
         setMittente(mittente);
         setContenuto(contenuto);
         setMinutaggio(minutaggio);
+        setMinutaggioDaMostrare();
     }
 
     public String getMittente() {
@@ -40,5 +47,14 @@ public class Messaggio {
 
     public void setMinutaggio(String minutaggio) {
         this.minutaggio = minutaggio;
+    }
+
+    public String getMinutaggioDaMostrare() {
+        return minutaggioDaMostrare;
+    }
+
+    public void setMinutaggioDaMostrare() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        this.minutaggioDaMostrare = formatter.format(Date.from(Instant.ofEpochMilli(Long.parseLong(minutaggio))));
     }
 }
