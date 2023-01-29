@@ -14,6 +14,8 @@ public class CercaGruppoViewModel extends ViewModel {
 
     public MutableLiveData<String> trovatiGruppi = new MutableLiveData<>("false");
 
+
+
     Controller controller;
 
     public void setlistaGruppiCercati() {

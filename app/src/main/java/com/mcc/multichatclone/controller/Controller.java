@@ -62,7 +62,7 @@ public class Controller {
     private static final String SIGNGIAREGISTRATO = "213";
     private static final String CREAGRUPGIAREGISTRATO = "313";
     private static Socket socket = null;
-    private static final String indirizzoServer = "192.168.1.145";
+    private static final String indirizzoServer = "192.168.1.8";
     private static final int portaServer = 10000;
     private static String pacchetto = null;
     // comandi (client)
@@ -140,6 +140,7 @@ public class Controller {
     }
 
     public void login(String nome, String password) throws Exception {
+        nome = validaStringa(nome);
         String messaggio = "\r\ncmd=" + LOGIN + "\r\nnome=" + nome + "\r\npassword=" + password + "\r\n\r\n";
         Thread t = new Thread(new Runnable() {
             @Override
@@ -163,6 +164,7 @@ public class Controller {
     }
 
     public void signin(String nome, String password) throws Exception {
+        nome = validaStringa(nome);
         String messaggio = "\r\ncmd=" + SIGNIN + "\r\nnome=" + nome + "\r\npassword=" + password + "\r\n\r\n";
         Thread t = new Thread(new Runnable() {
             @Override
@@ -185,6 +187,7 @@ public class Controller {
         setPassword(password);
     }
     public void creaGruppo(String gruppo) throws InterruptedException {
+        gruppo = validaStringa(gruppo);
         String utente = getNome();
         String messaggio = "\r\ncmd=" + CREAGRUP + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\n\r\n";
         Thread t = new Thread(new Runnable() {
@@ -205,6 +208,7 @@ public class Controller {
     }
 
     public void sendMessaggio(String contenuto) throws InterruptedException {
+        contenuto = validaStringa(contenuto);
         String minutaggio = Long.toString(Instant.now().toEpochMilli());
         String gruppo = getGruppoNavigato().getNome();
         String utente = getNome();
@@ -227,6 +231,7 @@ public class Controller {
     }
 
     public void cercaGruppo(String gruppo) throws InterruptedException {
+        gruppo = validaStringa(gruppo);
         String utente = getNome();
         String messaggio = "\r\ncmd=" + SEARCHGRUP + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\n\r\n";
         Thread t = new Thread(new Runnable() {
@@ -247,6 +252,7 @@ public class Controller {
     }
 
     public void mandaNotifica(String gruppo) throws InterruptedException {
+        gruppo = validaStringa(gruppo);
         String utente = getNome();
         String messaggio = "\r\ncmd=" + SENDNOTIFICA + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\n\r\n";
         Thread t = new Thread(new Runnable() {
@@ -267,6 +273,8 @@ public class Controller {
     }
 
     public void accettaNotifica(String gruppo, String richiedente) throws InterruptedException {
+        gruppo = validaStringa(gruppo);
+        richiedente = validaStringa(richiedente);
         String utente = getNome();
         String messaggio = "\r\ncmd=" + ACCETTAUT + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\nrichiedente=" + richiedente +"\r\n\r\n";
         Thread t = new Thread(new Runnable() {
@@ -287,6 +295,8 @@ public class Controller {
     }
 
     public void rifiutaNotifica(String gruppo, String richiedente) throws InterruptedException {
+        gruppo = validaStringa(gruppo);
+        richiedente = validaStringa(richiedente);
         String utente = getNome();
         String messaggio = "\r\ncmd=" + RIFIUTANOT + "\r\ngruppo=" + gruppo + "\r\nutente=" + utente + "\r\nrichiedente=" + richiedente +"\r\n\r\n";
         Thread t = new Thread(new Runnable() {
@@ -440,8 +450,8 @@ public class Controller {
             String nomeGruppo = getNomeGruppo(gruppo);
             // se il gruppo non è presente allora l'utente è il richiedente
             if (gruppiController.stream().filter(g -> g.getNome().equals(nomeGruppo)).collect(Collectors.toList()).isEmpty()) {
-                if (notificaModel != null) {
-                    notificaModel.setMessaggio(codiceMessaggio);
+                if (cercaGruppoModel != null) {
+                    cercaGruppoModel.setTrovatiGruppi(codiceMessaggio);
                 }
             }
             else {
@@ -479,7 +489,15 @@ public class Controller {
             }
             //altrimenti rimuovi la notifica
             else {
-                notificheController.remove(notificheController.stream().filter(n -> n.getGruppoRichiesto().equals(nomeGruppo)).collect(Collectors.toList()).get(0));
+                //TODO: inserire qui l'aggiutamento del bug
+                String notifiche = getNotifiche(gruppo);
+                ArrayList<String> listaNotifiche = getListaNotifiche(notifiche);
+                String nomeNotificante = getRichiedenteNotifica(listaNotifiche.get(0));
+                String gruppoNotificato = getGruppoNotifica(listaNotifiche.get(0));
+
+                Notifica notificaDaRimuovere = notificheController.stream().filter(n -> n.getRichiedente().equals(nomeNotificante)).collect(Collectors.toList()).get(0);
+                System.err.println("La notifica da rimuovere è : "+ notificaDaRimuovere.getRichiedente());
+                notificheController.remove(notificaDaRimuovere);
                 if (notificaModel != null) {
                     notificaModel.aggiornaNotifiche();
                 }
@@ -493,7 +511,14 @@ public class Controller {
             ArrayList<String> listaGruppi = getListaGruppi(gruppi);
             String gruppo = listaGruppi.get(0);
             String nomeGruppo = getNomeGruppo(gruppo);
-            notificheController.remove(notificheController.stream().filter(n -> n.getGruppoRichiesto().equals(nomeGruppo)).collect(Collectors.toList()).get(0));
+
+            String notifiche = getNotifiche(gruppo);
+            ArrayList<String> listaNotifiche = getListaNotifiche(notifiche);
+            String nomeNotificante = getRichiedenteNotifica(listaNotifiche.get(0));
+            String gruppoNotificato = getGruppoNotifica(listaNotifiche.get(0));
+            Notifica notificaDaRimuovere = notificheController.stream().filter(n -> n.getRichiedente().equals(nomeNotificante)).collect(Collectors.toList()).get(0);
+            System.err.println("La notifica da rimuovere è : "+ notificaDaRimuovere.getRichiedente());
+            notificheController.remove(notificaDaRimuovere);
             if (notificaModel != null) {
                 notificaModel.aggiornaNotifiche();
             }
@@ -809,6 +834,10 @@ public class Controller {
 
     public void setNotifiche(ArrayList<Notifica> notifiche) {
         this.notificheController = notifiche;
+    }
+
+    public String validaStringa(String stringa) {
+        return stringa.trim();
     }
 
     public Gruppo getGruppoNavigato() {
