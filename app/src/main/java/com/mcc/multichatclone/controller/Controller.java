@@ -131,7 +131,7 @@ public class Controller {
         }
         socket = new Socket();
         InetSocketAddress sockAdr = new InetSocketAddress(indirizzoServer, portaServer);
-        socket.connect(sockAdr, 2000);
+        socket.connect(sockAdr, 5000);
         return socket;
     }
 
@@ -145,20 +145,23 @@ public class Controller {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run()  {
-                try {
-                    System.err.println("Superato il while della login");
-                    PrintWriter output = new PrintWriter(socket.getOutputStream());
-                    output.write(messaggio);
-                    output.flush();
-                } catch (IOException e) {
-                    System.out.println("login non riuscito socket chiusa");
+                Boolean riprova = true;
+                while (riprova) {
+                    try {
+                        while (socket != null && socket.isClosed()) ;
+                        System.err.println("Superato il while della login");
+                        PrintWriter output = new PrintWriter(socket.getOutputStream());
+                        output.write(messaggio);
+                        output.flush();
+                        riprova = false;
+                    } catch (IOException e) {
+                        System.out.println("login non riuscito socket chiusa");
+                    }
                 }
             }
         });
         // serve per creare una sincronizzazione pezzotta con l'attivazione della socket
-        t.sleep(25);
         t.start();
-        t.join();
         setNome(nome);
         setPassword(password);
     }
@@ -168,21 +171,24 @@ public class Controller {
         String messaggio = "\r\ncmd=" + SIGNIN + "\r\nnome=" + nome + "\r\npassword=" + password + "\r\n\r\n";
         Thread t = new Thread(new Runnable() {
             @Override
-            public void run()  {
-                try {
-                    System.err.println("Superato il while della signin");
-                    PrintWriter output = new PrintWriter(socket.getOutputStream());
-                    output.write(messaggio);
-                    output.flush();
-                } catch (IOException e) {
-                    System.out.println("signin non riuscito socket chiusa");
+            public void run() {
+                Boolean riprova = true;
+                while (riprova) {
+                    try {
+                        while (socket != null && socket.isClosed()) ;
+                        System.err.println("Superato il while della signin");
+                        PrintWriter output = new PrintWriter(socket.getOutputStream());
+                        output.write(messaggio);
+                        output.flush();
+                        riprova = false;
+                    } catch (IOException e) {
+                        System.out.println("signin non riuscito socket chiusa");
+                    }
                 }
             }
         });
         // serve per creare una sincronizzazione pezzotta con l'attivazione della socket
-        t.sleep(25);
         t.start();
-        t.join();
         setNome(nome);
         setPassword(password);
     }

@@ -31,7 +31,7 @@ public class GruppiViewModel extends ViewModel {
     }
 
     public void aggiornaGruppi () {
-        gruppoModel.setValue(controller.getGruppi());
+        gruppoModel.postValue(controller.getGruppi());
     }
 
     public void aggiungiQualcheGruppo() {
