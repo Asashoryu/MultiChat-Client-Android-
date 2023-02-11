@@ -71,7 +71,7 @@
             android:layout_height="33dp"
             android:background="@drawable/btn_custom"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/login"
+            android:text="@string/register"
             android:onClick="@{() -> registrazioneViewModel.signin(nomeText.getText().toString(), passwordText.getText().toString())}"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
