@@ -155,6 +155,7 @@ public class Controller {
                             output.write(messaggio);
                             output.flush();
                         }
+
                         riprova = false;
                     } catch (IOException e) {
                         System.out.println("login non riuscito socket chiusa");
