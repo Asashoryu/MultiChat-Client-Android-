@@ -48,6 +48,7 @@ public class LoginFragment extends Fragment {
             }
             else {
                 Toast.makeText(binding.getRoot().getContext(), loggato, Toast.LENGTH_SHORT).show();
+                loginModel.setLoggatoFalse();
             }
         });
 
@@ -60,8 +61,6 @@ public class LoginFragment extends Fragment {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         loginModel.indietro.observe(getViewLifecycleOwner(), osservaSeTornareIndietro);
         loginModel.registrazione.observe(getViewLifecycleOwner(), osservaSeRegistrarsi);
-
-
 
         return view;
     }

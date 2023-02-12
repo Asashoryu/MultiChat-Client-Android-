@@ -1,5 +1,7 @@
 package com.mcc.multichatclone.controller;
 
+import static java.lang.Thread.sleep;
+
 import com.mcc.multichatclone.model.Gruppo;
 import com.mcc.multichatclone.model.Messaggio;
 import com.mcc.multichatclone.model.Notifica;
@@ -148,16 +150,18 @@ public class Controller {
                 Boolean riprova = true;
                 while (riprova) {
                     try {
-                        while (socket != null && socket.isClosed()) ;
+                        sleep(500);
                         System.err.println("Superato il while della login");
                         if (socket != null) {
                             PrintWriter output = new PrintWriter(socket.getOutputStream());
                             output.write(messaggio);
                             output.flush();
                         }
-
                         riprova = false;
-                    } catch (IOException e) {
+                    }
+                    catch (InterruptedException e) {
+                        break;
+                    } catch (Exception e) {
                         System.out.println("login non riuscito socket chiusa");
                     }
                 }
@@ -165,6 +169,11 @@ public class Controller {
         });
         // serve per creare una sincronizzazione pezzotta con l'attivazione della socket
         t.start();
+        t.join(5000);
+        if (t.isAlive()) {
+            loginModel.setLoggato("Non è stato possibile connettersi alla server");
+            t.interrupt();
+        }
         setNome(nome);
         setPassword(password);
     }
@@ -178,7 +187,7 @@ public class Controller {
                 Boolean riprova = true;
                 while (riprova) {
                     try {
-                        while (socket != null && socket.isClosed()) ;
+                        sleep(500);
                         System.err.println("Superato il while della signin");
                         if (socket != null) {
                             PrintWriter output = new PrintWriter(socket.getOutputStream());
@@ -186,7 +195,9 @@ public class Controller {
                             output.flush();
                         }
                         riprova = false;
-                    } catch (IOException e) {
+                    }catch (InterruptedException e) {
+                        break;
+                    } catch (Exception e) {
                         System.out.println("signin non riuscito socket chiusa");
                     }
                 }
@@ -194,7 +205,11 @@ public class Controller {
         });
         // serve per creare una sincronizzazione pezzotta con l'attivazione della socket
         t.start();
-        setNome(nome);
+        t.join(5000);
+        if (t.isAlive()) {
+            registrazioneModel.setRegistrato("Registrazione Non è stato possibile connettersi alla server");
+            t.interrupt();
+        }
         setPassword(password);
     }
     public void creaGruppo(String gruppo) throws InterruptedException {
@@ -220,6 +235,9 @@ public class Controller {
 
     public void sendMessaggio(String contenuto) throws InterruptedException {
         contenuto = validaStringa(contenuto);
+        if (contenuto.equals("")) {
+            return;
+        }
         String minutaggio = Long.toString(Instant.now().toEpochMilli());
         String gruppo = getGruppoNavigato().getNome();
         String utente = getNome();
@@ -873,5 +891,17 @@ public class Controller {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void chiudiSocket() {
+        try {
+            if (socket != null) {
+                socket.close();
+                System.err.println("Socket chiusa con successo");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        socket = null;
     }
 }

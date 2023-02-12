@@ -48,6 +48,7 @@ public class RegistrazioneFragment extends Fragment {
             }
             else {
                 Toast.makeText(binding.getRoot().getContext(), registrato, Toast.LENGTH_SHORT).show();
+                registrazioneModel.setRegistratoFalse();
             }
         });
 
