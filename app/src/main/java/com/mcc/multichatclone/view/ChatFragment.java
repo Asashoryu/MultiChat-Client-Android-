@@ -38,15 +38,6 @@ public class ChatFragment extends Fragment {
         ChatItemAdapter adapter = new ChatItemAdapter();
         binding.chatList.setAdapter(adapter);
 
-        binding.getRoot().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-
-            public void onLayoutChange(View v, int left, int top, int right,int bottom, int oldLeft, int oldTop,int oldRight, int oldBottom)
-            {
-
-                binding.chatList.scrollToPosition(adapter.getItemCount()-1);
-            }
-        });
         chatModel.listaMessaggi.observe(getViewLifecycleOwner(), lista ->
         {
             adapter.setData(lista);

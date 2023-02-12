@@ -17,8 +17,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:clipToPadding="false"
-        android:focusableInTouchMode="true"
-        android:windowSoftInputMode="adjustResize">
+        android:focusableInTouchMode="true">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chat_list"
