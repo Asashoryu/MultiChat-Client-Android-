@@ -62,7 +62,7 @@ public class Controller {
     private static final String SIGNGIAREGISTRATO = "213";
     private static final String CREAGRUPGIAREGISTRATO = "313";
     private static Socket socket = null;
-    private static final String indirizzoServer = "192.168.1.16";
+    private static final String indirizzoServer = "37.179.136.150";
     private static final int portaServer = 10000;
     private static String pacchetto = null;
     // comandi (client)
@@ -150,9 +150,11 @@ public class Controller {
                     try {
                         while (socket != null && socket.isClosed()) ;
                         System.err.println("Superato il while della login");
-                        PrintWriter output = new PrintWriter(socket.getOutputStream());
-                        output.write(messaggio);
-                        output.flush();
+                        if (socket != null) {
+                            PrintWriter output = new PrintWriter(socket.getOutputStream());
+                            output.write(messaggio);
+                            output.flush();
+                        }
                         riprova = false;
                     } catch (IOException e) {
                         System.out.println("login non riuscito socket chiusa");
@@ -177,9 +179,11 @@ public class Controller {
                     try {
                         while (socket != null && socket.isClosed()) ;
                         System.err.println("Superato il while della signin");
-                        PrintWriter output = new PrintWriter(socket.getOutputStream());
-                        output.write(messaggio);
-                        output.flush();
+                        if (socket != null) {
+                            PrintWriter output = new PrintWriter(socket.getOutputStream());
+                            output.write(messaggio);
+                            output.flush();
+                        }
                         riprova = false;
                     } catch (IOException e) {
                         System.out.println("signin non riuscito socket chiusa");
